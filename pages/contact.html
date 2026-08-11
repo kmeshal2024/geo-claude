@@ -1,0 +1,45 @@
+<!--
+  PHASE 4, ITEM 16 — Contact page.  Publish at https://smartcopons.com/contact/
+  A real, reachable contact method is a trust signal AI engines and users check.
+  Replace {{...}}. Wire the form to your mailer (WPForms/Contact Form 7 in WordPress).
+-->
+<article>
+  <h1>Contact SmartCopons</h1>
+
+  <p>We'd love to hear from you — whether you found a dead coupon, want to suggest a
+  store, or have a partnership enquiry.</p>
+
+  <h2>Email</h2>
+  <p>General: <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a><br>
+     Partnerships: <a href="mailto:{{PARTNERSHIPS_EMAIL}}">{{PARTNERSHIPS_EMAIL}}</a></p>
+
+  <h2>Report a coupon that didn't work</h2>
+  <p>Tell us the store and the code and we'll re-check it fast. Email
+  <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a> with "Dead code" in the subject.</p>
+
+  <h2>Address</h2>
+  <address>
+    {{LEGAL_COMPANY_NAME}}<br>
+    {{STREET / OFFICE}}<br>
+    {{CITY}}, {{COUNTRY}}
+  </address>
+
+  <h2>Send us a message</h2>
+  <form action="{{FORM_HANDLER_URL}}" method="post">
+    <label>Name <input type="text" name="name" required></label>
+    <label>Email <input type="email" name="email" required></label>
+    <label>Message <textarea name="message" required></textarea></label>
+    <button type="submit">Send</button>
+  </form>
+</article>
+
+<!--
+  Add ContactPage schema to this page's <head>:
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact SmartCopons",
+    "url": "https://smartcopons.com/contact/",
+    "mainEntity": { "@id": "https://smartcopons.com/#organization" }
+  }
+-->

@@ -1,0 +1,39 @@
+<!--
+  PHASE 2, ITEM 4 — Organization schema (SITEWIDE)
+  Place this in the <head> of EVERY page (in WordPress: Snippets plugin,
+  or theme header.php, or your SEO plugin's schema/JSON-LD field).
+  Replace every {{PLACEHOLDER}} with real data before publishing.
+  Validate at https://validator.schema.org and https://search.google.com/test/rich-results
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://smartcopons.com/#organization",
+  "name": "SmartCopons",
+  "legalName": "{{LEGAL_COMPANY_NAME}}",
+  "url": "https://smartcopons.com/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://smartcopons.com/logo.png",
+    "width": 512,
+    "height": 512
+  },
+  "description": "SmartCopons provides verified coupon codes, promo codes, and money-saving deals for online stores across the UAE, the Gulf region, and international retailers.",
+  "foundingDate": "{{YYYY-MM-DD}}",
+  "email": "{{CONTACT_EMAIL}}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "{{COUNTRY_CODE_e.g._AE}}",
+    "addressLocality": "{{CITY}}"
+  },
+  "sameAs": [
+    "{{FACEBOOK_URL}}",
+    "{{INSTAGRAM_URL}}",
+    "{{X_TWITTER_URL}}",
+    "{{LINKEDIN_URL}}",
+    "{{YOUTUBE_URL}}",
+    "{{PINTEREST_URL}}"
+  ]
+}
+</script>

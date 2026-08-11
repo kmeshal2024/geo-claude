@@ -1,0 +1,26 @@
+<!--
+  PHASE 2, ITEM 5 — WebSite schema + SearchAction (SITEWIDE, homepage priority)
+  Place in <head> sitewide. Enables the sitelinks search box and ties pages
+  to the Organization entity. Confirm the search URL below matches how the
+  site's search actually works (WordPress default is ?s=).
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://smartcopons.com/#website",
+  "url": "https://smartcopons.com/",
+  "name": "SmartCopons",
+  "description": "Verified coupon codes and discount deals for UAE, Gulf, and international online stores.",
+  "publisher": { "@id": "https://smartcopons.com/#organization" },
+  "inLanguage": "en",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://smartcopons.com/?s={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>

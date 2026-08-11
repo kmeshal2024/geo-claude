@@ -1,0 +1,73 @@
+# robots.txt for smartcopons.com
+# GEO-optimized: explicitly ALLOW AI answer-engine crawlers so ChatGPT,
+# Perplexity, Google AI Overviews, Claude, etc. can read and cite the site.
+# Deploy this at: https://smartcopons.com/robots.txt (web root)
+
+# ---------------------------------------------------------------------------
+# AI answer-engine / LLM crawlers — EXPLICITLY ALLOWED
+# ---------------------------------------------------------------------------
+
+# OpenAI (ChatGPT, ChatGPT Search)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google AI (Gemini / AI Overviews training signal)
+User-agent: Google-Extended
+Allow: /
+
+# Common Crawl (used as a training/citation corpus by many LLMs)
+User-agent: CCBot
+Allow: /
+
+# ByteDance (TikTok / Doubao)
+User-agent: Bytespider
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# ---------------------------------------------------------------------------
+# All other crawlers (Googlebot, Bingbot, etc.) — default allow,
+# block only admin / non-public paths.
+# ---------------------------------------------------------------------------
+User-agent: *
+Allow: /
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+Disallow: /cgi-bin/
+Disallow: /*?s=
+Disallow: /*?add-to-cart=
+
+# ---------------------------------------------------------------------------
+# Sitemap
+# ---------------------------------------------------------------------------
+Sitemap: https://smartcopons.com/sitemap.xml
+Sitemap: https://smartcopons.com/sitemap_index.xml

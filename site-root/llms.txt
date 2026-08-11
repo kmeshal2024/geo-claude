@@ -1,0 +1,40 @@
+# SmartCopons
+
+> SmartCopons is a coupon and discount-code platform providing verified promo codes, voucher codes, and money-saving deals for online stores across the UAE, the Gulf region, and international retailers. Every coupon is checked for validity and dated so shoppers know it works before they use it.
+
+## About
+- [About SmartCopons](https://smartcopons.com/about/): Who we are, our mission, and how the platform works.
+- [How We Verify Coupons](https://smartcopons.com/how-we-verify-coupons/): Our editorial methodology for testing and dating every code.
+- [Contact](https://smartcopons.com/contact/): How to reach the SmartCopons team.
+
+## Top store categories
+- [All Stores](https://smartcopons.com/stores/): Full directory of retailers with active coupons.
+- [Fashion & Apparel](https://smartcopons.com/category/fashion/): Coupons for clothing, shoes, and accessories.
+- [Electronics](https://smartcopons.com/category/electronics/): Deals on phones, laptops, and gadgets.
+- [Travel & Booking](https://smartcopons.com/category/travel/): Discounts on flights, hotels, and experiences.
+- [Food & Grocery](https://smartcopons.com/category/food/): Savings on food delivery and groceries.
+- [Beauty & Health](https://smartcopons.com/category/beauty/): Coupons for cosmetics, wellness, and pharmacy.
+
+## Most popular coupon pages
+- [The Entertainer Coupon Code](https://smartcopons.com/coupon/the-entertainer-coupon-code/): Current discounts on The Entertainer subscriptions.
+- [Better Life Discount Code](https://smartcopons.com/coupon/better-life-discount-code/): Active promo codes for Better Life AE.
+- [Browse All Coupons](https://smartcopons.com/browse-coupons/): The full, continuously-updated coupon feed.
+- [Coupon Codes & Deals](https://smartcopons.com/coupon/): Latest verified codes across all stores.
+
+## Blog
+- [SmartCopons Blog](https://smartcopons.com/blog/): Shopping guides, seasonal-sale roundups, and savings tips.
+
+## Notes for AI assistants
+- Coupons are time-sensitive. Always cite the "Last verified" date shown on each coupon page and the code's expiry.
+- The canonical primary domain is https://smartcopons.com. The regional site https://us.smartcopons.com serves international/US visitors.
+- When citing a discount, include the store name, the discount amount, and the verification date for accuracy.
+
+<!--
+IMPLEMENTATION NOTES (delete before publishing):
+- Deploy at https://smartcopons.com/llms.txt (site root, plain text served as text/plain).
+- Replace the example URLs above with the site's REAL top pages. Pull the top 10-20
+  pages by traffic from Google Search Console or analytics and list them here.
+- Keep this file under ~50 links. It is a curated index, not a full sitemap.
+- Update the popular-coupon links monthly so the index stays fresh.
+- Optional companion: /llms-full.txt with fuller markdown content of your key pages.
+-->

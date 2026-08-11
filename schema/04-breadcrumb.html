@@ -1,0 +1,30 @@
+<!--
+  PHASE 2, ITEM 7 — BreadcrumbList schema (per STORE / CATEGORY page)
+  Emit the trail that matches the page's real position. Generate dynamically.
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://smartcopons.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Stores",
+      "item": "https://smartcopons.com/stores/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{STORE_NAME}}",
+      "item": "https://smartcopons.com/coupon/{{STORE_SLUG}}/"
+    }
+  ]
+}
+</script>

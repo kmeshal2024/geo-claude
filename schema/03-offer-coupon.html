@@ -1,0 +1,50 @@
+<!--
+  PHASE 2, ITEM 6 — Offer schema (per COUPON / DEAL)
+  Add one block PER coupon on store/coupon pages. In WordPress, generate this
+  dynamically from the coupon post fields (loop over each coupon and emit a block).
+  Google's coupon-specific type is "Offer" nested with a discount code.
+  Replace {{...}} from each coupon's real data. Validate before commit.
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Offer",
+  "name": "{{STORE_NAME}} Coupon — {{DISCOUNT_e.g._10% Off}}",
+  "description": "{{SHORT_HUMAN_DESCRIPTION_OF_THE_DEAL}}",
+  "url": "https://smartcopons.com/coupon/{{COUPON_SLUG}}/",
+  "category": "Coupon",
+  "priceCurrency": "AED",
+  "seller": {
+    "@type": "Organization",
+    "name": "{{STORE_NAME}}"
+  },
+  "itemOffered": {
+    "@type": "Service",
+    "name": "{{STORE_NAME}} discount"
+  },
+  "priceSpecification": {
+    "@type": "UnitPriceSpecification",
+    "priceType": "https://schema.org/SalePrice"
+  },
+  "eligibleTransactionVolume": {
+    "@type": "PriceSpecification",
+    "description": "Discount code: {{COUPON_CODE}}"
+  },
+  "validFrom": "{{YYYY-MM-DD_verified_date}}",
+  "priceValidUntil": "{{YYYY-MM-DD_expiry}}",
+  "validThrough": "{{YYYY-MM-DDT23:59:59+04:00_expiry}}",
+  "availability": "https://schema.org/InStock"
+}
+</script>
+
+<!--
+  NOTE ON DISCOUNT CODES: Google also recognizes the newer schema.org
+  discount properties. If your CMS supports it, prefer this richer form
+  inside the Offer above:
+
+    "discount": "{{PERCENT_OR_AMOUNT}}",
+    "discountCode": "{{COUPON_CODE}}",
+    "discountCurrency": "AED"
+
+  Keep validThrough accurate — expired coupons with future dates get penalized.
+-->

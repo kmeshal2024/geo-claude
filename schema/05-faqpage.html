@@ -1,0 +1,46 @@
+<!--
+  PHASE 2, ITEM 8 — FAQPage schema (per STORE / CATEGORY page)
+  IMPORTANT: The questions/answers here MUST match VISIBLE FAQ text on the page
+  (see content-templates/faq-blocks.md). Schema whose answers aren't visible on
+  the page is a guidelines violation. Generate {{STORE_NAME}} dynamically.
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are the {{STORE_NAME}} coupon codes on SmartCopons valid?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every {{STORE_NAME}} coupon on SmartCopons is tested before it is published and shows a 'Last verified' date. Codes that fail our check are removed, so the codes listed are the ones working as of that date."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I use a {{STORE_NAME}} promo code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Copy the code from SmartCopons, add your items to the cart at {{STORE_NAME}}, and paste the code into the promo/voucher box at checkout before you pay. The discount is applied to your order total."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When do {{STORE_NAME}} coupon codes expire?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each {{STORE_NAME}} coupon on SmartCopons shows its own expiry date next to the code. Some codes are ongoing; others are limited-time. Check the expiry shown on the specific coupon before using it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often are {{STORE_NAME}} deals updated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SmartCopons re-checks {{STORE_NAME}} codes regularly and updates the page with the latest verified offers. The 'Last verified' date at the top of the page shows when it was last reviewed."
+      }
+    }
+  ]
+}
+</script>
