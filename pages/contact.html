@@ -1,40 +1,47 @@
 <!--
   PHASE 4, ITEM 16 — Contact page.  Publish at https://smartcopons.com/contact/
-  A real, reachable contact method is a trust signal AI engines and users check.
-  Replace {{...}}. Wire the form to your mailer (WPForms/Contact Form 7 in WordPress).
+  PASTE-READY as-is: the contact form works once you point it at your form plugin.
+
+  HOW TO WIRE THE FORM (pick one):
+    • WPForms / Contact Form 7 / Fluent Forms: create a form in that plugin, then
+      REPLACE the <form>...</form> block below with the plugin's shortcode
+      (e.g. [contact-form-7 id="123"]). Easiest and recommended.
+    • Keep the raw HTML form: set {{FORM_HANDLER_URL}} to your handler (e.g. a
+      FormSubmit.co endpoint or your own script).
+
+  OPTIONAL UPGRADE: if you have a real inbox, uncomment the Email section for a
+  direct address. Leave it commented if you'd rather receive messages via the form.
 -->
 <article>
   <h1>Contact SmartCopons</h1>
 
   <p>We'd love to hear from you — whether you found a dead coupon, want to suggest a
-  store, or have a partnership enquiry.</p>
-
-  <h2>Email</h2>
-  <p>General: <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a><br>
-     Partnerships: <a href="mailto:{{PARTNERSHIPS_EMAIL}}">{{PARTNERSHIPS_EMAIL}}</a></p>
+  store, or have a partnership enquiry. Use the form below and we'll reply as soon as
+  we can.</p>
 
   <h2>Report a coupon that didn't work</h2>
-  <p>Tell us the store and the code and we'll re-check it fast. Email
-  <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a> with "Dead code" in the subject.</p>
+  <p>Tell us the store name and the code in the form below with "Dead code" as the
+  subject, and we'll re-check and fix it fast.</p>
 
-  <h2>Address</h2>
-  <address>
-    {{LEGAL_COMPANY_NAME}}<br>
-    {{STREET / OFFICE}}<br>
-    {{CITY}}, {{COUNTRY}}
-  </address>
+  <!-- OPTIONAL: uncomment and set a real address if you have a monitored inbox.
+  <h2>Email</h2>
+  <p>General enquiries: <a href="mailto:REPLACE-WITH-REAL-EMAIL">REPLACE-WITH-REAL-EMAIL</a></p>
+  -->
 
   <h2>Send us a message</h2>
+  <!-- Replace this whole form with your form-plugin shortcode for the easiest setup. -->
   <form action="{{FORM_HANDLER_URL}}" method="post">
-    <label>Name <input type="text" name="name" required></label>
-    <label>Email <input type="email" name="email" required></label>
-    <label>Message <textarea name="message" required></textarea></label>
-    <button type="submit">Send</button>
+    <p><label>Name<br><input type="text" name="name" required></label></p>
+    <p><label>Email<br><input type="email" name="email" required></label></p>
+    <p><label>Subject<br><input type="text" name="subject"></label></p>
+    <p><label>Message<br><textarea name="message" rows="6" required></textarea></label></p>
+    <p><button type="submit">Send message</button></p>
   </form>
 </article>
 
 <!--
-  Add ContactPage schema to this page's <head>:
+  Add ContactPage schema (paste into WPCode as a page-specific snippet, or your SEO
+  plugin's schema field for this page):
   {
     "@context": "https://schema.org",
     "@type": "ContactPage",
