@@ -1,35 +1,57 @@
-# Master Prompt — Implement GEO (AI-Search) Optimization on smartcopons.com
+# Master Prompt — Audit + Implement GEO on smartcopons.com (with the GitHub GEO skill)
 
-Copy everything below the line and give it to an AI agent that has access to the
-WordPress admin of smartcopons.com (or is running where it can reach the site).
+Give this to **Claude Code** running on a machine that can reach smartcopons.com and has the
+WordPress admin credentials available (or an app password / REST access). It installs the
+open-source GEO skill from GitHub, runs its audit, then implements every fix and verifies it.
 
 ---
 
 ## ROLE
-You are a technical SEO/GEO engineer. Implement Generative Engine Optimization (GEO) on
-**smartcopons.com** so AI answer engines (ChatGPT, Perplexity, Google AI Overviews, Claude,
-Gemini) can crawl, understand, and CITE the site. Work carefully, verify each step, and
-report what you changed.
+You are a technical SEO/GEO engineer. Optimize **smartcopons.com** for Generative Engine
+Optimization (GEO) so AI answer engines (ChatGPT, Perplexity, Google AI Overviews, Claude,
+Gemini) can crawl, understand, and CITE it. Audit first with the GitHub tool below, then
+implement, verifying each step. Report what you changed.
 
-## SITE FACTS (already established — do not re-investigate)
+## STEP 0 — Install & run the GitHub GEO skill
+Install the open-source GEO skill and use it to audit the site:
+
+- Repo: **https://github.com/zubair-trabzada/geo-seo-claude**
+- Install (macOS/Linux; Windows uses Git Bash):
+  ```
+  curl -fsSL https://raw.githubusercontent.com/zubair-trabzada/geo-seo-claude/main/install.sh | bash
+  ```
+  (Review install.sh before running it.) It installs to ~/.claude/skills/geo/.
+- Then run these `/geo` commands and use their output to guide the work:
+  ```
+  /geo audit smartcopons.com        # full GEO + SEO audit (parallel subagents)
+  /geo crawlers smartcopons.com     # AI bot access via robots.txt
+  /geo llmstxt smartcopons.com      # check/create llms.txt
+  /geo schema smartcopons.com       # structured-data review + generation
+  /geo citability smartcopons.com   # how citable the content is to AI
+  /geo brands smartcopons.com       # brand mentions across AI-cited platforms
+  /geo report smartcopons.com       # client-ready report
+  ```
+Use the audit findings to prioritize, then implement Steps 1–7 below (the concrete fixes).
+
+## SITE FACTS (already established — don't re-investigate)
 - Platform: **self-hosted WordPress** (admin at smartcopons.com/wp-admin).
-- Theme: **Couponis** (coupon affiliate theme). Coupons are a custom post type; each coupon
-  has a discount CODE (e.g. "MXS26") and an EXPIRY date stored in post meta.
-- Plugins present: **WPCode** (code snippets), **Rank Math SEO**, Elementor, Site Kit.
-- Focus market: UAE / Gulf / Arabic + international shoppers.
-- Canonical primary domain: https://smartcopons.com  (a regional us.smartcopons.com exists).
+- Theme: **Couponis** (coupon affiliate). Coupons are a custom post type; each has a discount
+  CODE (e.g. "MXS26") and an EXPIRY date in post meta.
+- Plugins: **WPCode**, **Rank Math SEO**, Elementor, Site Kit.
+- Market: UAE / Gulf / Arabic + international. Primary domain: https://smartcopons.com
+  (a regional us.smartcopons.com also exists).
 - Rank Math already outputs WebSite + BreadcrumbList schema — DO NOT duplicate those.
 
-## GOAL / SUCCESS CRITERIA
-When done, https://validator.schema.org on a coupon page must show, with 0 errors:
-Organization, FAQPage, Offer (with the coupon code + expiry), plus Rank Math's WebSite and
-a single BreadcrumbList. AI crawlers must be allowed, and /llms.txt must exist.
+## SUCCESS CRITERIA
+On https://validator.schema.org a coupon page shows, with 0 errors: Organization, FAQPage,
+Offer (with the coupon code + expiry), plus Rank Math's WebSite and a SINGLE BreadcrumbList.
+AI crawlers allowed; /llms.txt exists.
 
 ---
 
-## TASK 1 — Allow AI crawlers (robots.txt)
-Edit robots.txt (via Rank Math → General Settings → Edit robots.txt, or a physical file at
-web root) so it contains these AI-crawler allows and the sitemap:
+## STEP 1 — Allow AI crawlers (robots.txt)
+Edit robots.txt (Rank Math → General Settings → Edit robots.txt, or a physical web-root file)
+to contain these allows + the sitemap, then verify it's live:
 
 ```
 User-agent: GPTBot
@@ -65,19 +87,17 @@ Allow: /wp-admin/admin-ajax.php
 
 Sitemap: https://smartcopons.com/sitemap_index.xml
 ```
-Verify: fetch https://smartcopons.com/robots.txt and confirm the rules are live.
 
-## TASK 2 — Create /llms.txt at the web root
-Create a plain-text file at https://smartcopons.com/llms.txt. Populate it from the site's
-REAL top pages (pull the top ~15 URLs from Rank Math's sitemap or Google Search Console).
-Follow the llmstxt.org format:
+## STEP 2 — Create /llms.txt at the web root
+Plain text, llmstxt.org format, populated from the site's REAL top ~15 pages (from Rank Math's
+sitemap or Google Search Console):
 
 ```
 # SmartCopons
 
-> SmartCopons publishes verified coupon codes, promo codes, and money-saving deals for
-> online stores across the UAE, the Gulf region, and international retailers. Every coupon
-> is tested and dated so shoppers know it works before using it.
+> SmartCopons publishes verified coupon codes, promo codes, and deals for online stores across
+> the UAE, the Gulf region, and international retailers. Every coupon is tested and dated so
+> shoppers know it works before using it.
 
 ## About
 - [About SmartCopons](https://smartcopons.com/about/)
@@ -86,18 +106,18 @@ Follow the llmstxt.org format:
 
 ## Top stores
 - [All Stores](https://smartcopons.com/stores/)
-- (add the 10 most popular store/coupon pages here, as markdown links)
+- (add the 10 most popular store/coupon pages as markdown links)
 
 ## Notes for AI assistants
 - Coupons are time-sensitive; cite the "Last verified" date and the code's expiry.
 - Canonical domain is https://smartcopons.com.
 ```
 
-## TASK 3 — Add schema via WPCode (Organization + FAQPage + Offer)
-In WPCode, create a PHP snippet (Auto Insert → Site Wide Header) with EXACTLY this code.
-It emits Organization sitewide, and FAQ + Offer on coupon pages. The Offer auto-detects the
-coupon code and expiry from post meta (handles flat keys, name variants, timestamps, and
-serialized/array meta). It intentionally does NOT emit WebSite/Breadcrumb (Rank Math does).
+## STEP 3 — Schema via WPCode (Organization + FAQPage + Offer)
+Create a WPCode PHP snippet (Auto Insert → Site Wide Header) with EXACTLY this code. It emits
+Organization sitewide and FAQ + Offer on coupon pages, auto-detecting the coupon code + expiry
+from post meta (flat keys, name variants, timestamps, serialized/array meta). It does NOT emit
+WebSite/Breadcrumb (Rank Math already does). Tested and verified valid.
 
 ```php
 add_action( 'wp_head', function () {
@@ -203,56 +223,41 @@ add_action( 'wp_head', function () {
 
 }, 20 );
 ```
-Verify: run https://validator.schema.org on a coupon page (e.g. any /coupon/... URL). Confirm
-Organization, FAQPage, and Offer appear with 0 errors, and that the Offer's `description`
-contains the real code and `validThrough` contains the expiry date. If the Offer does NOT
-appear, inspect the coupon's post meta (open the coupon in wp-admin, or query the DB) to find
-the exact meta_key holding the code/expiry, and add that key to the `$find(...)` arrays.
+Verify on validator.schema.org: Organization + FAQPage + Offer with 0 errors; Offer description
+holds the real code and validThrough holds the expiry. If Offer is missing, find the coupon's
+real meta_key (open the coupon in wp-admin or query wp_postmeta) and add it to the `$find(...)`
+arrays.
 
-## TASK 4 — De-duplicate BreadcrumbList
-Rank Math and the Couponis theme may both emit BreadcrumbList. Keep ONE: in Rank Math →
-Titles & Meta → Misc, disable Rank Math's Breadcrumb schema (or disable the theme's),
-so validator shows a single BreadcrumbList.
+## STEP 4 — De-duplicate BreadcrumbList
+Rank Math → Titles & Meta → Misc → disable Rank Math's Breadcrumb schema (or the theme's) so a
+single BreadcrumbList remains.
 
-## TASK 5 — Create three trust pages (E-E-A-T)
-Create these WordPress Pages and add all three to the footer menu. Use real company details
-if available; otherwise keep the neutral wording below (do NOT invent a legal name/address).
+## STEP 5 — Trust pages (E-E-A-T)
+Create `/about/`, `/contact/` (working form via WPForms/Contact Form 7), and
+`/how-we-verify-coupons/`; link all three from the footer. Ready HTML is in the repo's `/pages/`.
+Do NOT invent a legal company name, address, or email — leave those for the owner.
 
-- **/about/** — what SmartCopons is, the verified-and-dated coupon mission, how it makes money
-  (free to users; affiliate commission at no extra cost), link to How We Verify + Contact.
-- **/contact/** — a working contact form (use WPForms/Contact Form 7) + "report a dead code".
-- **/how-we-verify-coupons/** — the editorial method: source → test at checkout → date →
-  re-check/remove dead codes → corrections. Link it from the footer on every page.
+## STEP 6 — Coupon-template citability
+Each coupon/store page: one `<h1>` "Verified {Store} Coupon Codes — {Month Year}"; a visible
+"Last verified: {date}" line; a 2–3 sentence factual intro; each coupon on one line
+(discount % + code + "Verified {date}" + expiry); a VISIBLE FAQ matching the FAQ schema.
 
-(Full ready HTML for these is in the repo folder /pages/ — about.html, contact.html,
-how-we-verify-coupons.html. Paste each into a Custom HTML block.)
-
-## TASK 6 — Content citability on coupon/store templates
-In the Couponis coupon/store template ensure each page has:
-1. ONE `<h1>` like "Verified {Store} Coupon Codes — {Month Year}".
-2. A visible "Last verified: {date}" line near the top (wire to the post's modified date).
-3. A 2–3 sentence factual intro answering "what discounts does {store} offer now".
-4. Each coupon rendered as one factual line: discount % + code + "Verified {date}" + expiry.
-5. A VISIBLE FAQ section whose text matches the FAQPage schema from Task 3.
-
-## TASK 7 — Canonical / entity clarity
-Decide smartcopons.com vs us.smartcopons.com: if duplicates, 301-redirect us.* to the primary
-or set cross-domain canonicals to smartcopons.com; if genuinely regional, add reciprocal
-hreflang and self-canonicals. Use the brand spelling "SmartCopons" consistently everywhere.
+## STEP 7 — Canonical / entity clarity
+Resolve smartcopons.com vs us.smartcopons.com (301 or cross-canonical if duplicates; hreflang +
+self-canonical if genuinely regional). Use the spelling "SmartCopons" consistently everywhere.
 
 ## REPORT
-When finished, output a table: each task, what you changed, the verification result
-(validator status, robots.txt/llms.txt live check), and anything that needs the site owner
-(real company details, form wiring, template edits you couldn't make).
+Output a table: each step, what changed, verification result (validator status, robots.txt +
+llms.txt live checks, the /geo audit score before/after), and anything needing the owner
+(real company details, form wiring, template edits).
 
-## OUT OF SCOPE (do not fabricate)
-Do not invent a legal company name, address, contact email, reviews, or social profiles. Do
-not create fake Trustpilot/Reddit content. Leave those as notes for the owner.
-```
-```
+## DO NOT FABRICATE
+No invented company name, address, email, reviews, or social profiles. No fake Trustpilot/Reddit
+content. Leave those as owner to-dos.
+
 ---
 
-## (Optional) Off-site follow-up prompt
-After the on-site work, a separate campaign gets SmartCopons INTO the "best UAE coupon sites"
-articles that AI engines cite. See /geo-assets/ready-to-send-outreach.md for send-ready emails
-to GrabOn UAE, Qyubic, Gulf News Coupons, plus a data-study press pitch.
+## After on-site: off-site campaign
+To get SmartCopons INTO the "best UAE coupon sites" articles AI engines cite, use the send-ready
+emails in /geo-assets/ready-to-send-outreach.md (GrabOn UAE, Qyubic, Gulf News Coupons, + a
+data-study press pitch).
